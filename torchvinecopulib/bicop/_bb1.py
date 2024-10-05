@@ -6,58 +6,25 @@ def _g(vec: torch.Tensor, delta: float) -> torch.Tensor:
 
 class Bb1(BiCopArchimedean):
 
-    _PAR_MIN, _PAR_MAX = (0, 0.99), (6.99, 6.99)
-
-    @staticmethod
-    # Joe 2014 page 190
-    # compare with pow function
-    def cdf_0(obs: torch.Tensor, par: tuple[float]) -> torch.Tensor:
-        theta = par[0]
-        delta = par[1]
-        return (
-                    (-1/theta)*(
-                        ((1/delta)*(
-                            (delta * _g(obs[:, [0]].log(), theta).log()).exp() 
-                            + (delta * _g(obs[:, [1]].log(), theta).log()).exp()
-                            ).log()
-                        ).exp()
-                    ).log1p()
-                ).exp()
+    _PAR_MIN, _PAR_MAX = (0, 1.01), (6.99, 6.99)
     
 
     @staticmethod
     def generator(obs: torch.Tensor, par: tuple[float]) -> torch.Tensor:
-        theta = par[0]
-        delta = par[1]
-        return (
-            delta * (
-                    _g(obs[:, [0]].log(), theta)
-                ).log()
-        ).exp()
+        return pow(pow(obs[:,[0]], par[0]) -1, par[1])
         
     @staticmethod
     def generator_inv(obs: torch.Tensor, par: tuple[float]) -> torch.Tensor:
-        theta = par[0]
-        delta = par[1]
-        return (
-            (-1/theta) * (
-                ((1/delta) * obs[:, [0]].log()).exp()
-            ).log1p()
-        ).exp()
+        return pow(pow(obs[:,[0]], 1 / par[1]) + 1, -1 / par[0])
     
     
     @staticmethod
     def generator_derivative(obs: torch.Tensor, par: tuple[float]) -> torch.Tensor:
         theta = par[0]
         delta = par[1]
-        return (
-            -delta * theta * (
-                obs[:, [0]].log() * (-1 - theta)
-            ).exp() * (
-                _g(obs[:, [0]].log(), -theta).log() * (delta - 1)
-            ).exp()
-        )
-    
+        res = -delta * theta * pow(obs[:,[0]], -(1 + theta))
+        res *= pow(pow(obs[:,[0]], -theta) - 1, delta - 1)
+        return res
     
     @staticmethod
     def pars2tau(par: tuple[float]) -> torch.Tensor:
