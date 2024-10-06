@@ -29,6 +29,9 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - name: Generate Documentation
+        run: |
+          sphinx-apidoc -o ./docs ./torchvinecopulib && cd ./docs && make html && cd ..
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Pages
