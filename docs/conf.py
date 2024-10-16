@@ -21,7 +21,7 @@ extensions = config.get("extensions", [])
 html_theme = config.get("html_theme", "furo")
 html_title = f"{project} v{version}"
 html_theme_options = {
-    "sidebar_hide_name": True,
+    "sidebar_hide_name": False,
     # "light_logo": "../torchvinecopulib.png",
     # "dark_logo": "../torchvinecopulib.png",
     # "sticky_navigation": True,
