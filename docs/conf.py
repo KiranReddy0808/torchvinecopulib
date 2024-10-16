@@ -1,5 +1,8 @@
+import sys
+
 from sphinx_pyproject import SphinxConfig
 
+sys.path.append('.')
 
 # * load the pyproject.toml file using SphinxConfig
 # * using Path for better cross-platform compatibility
