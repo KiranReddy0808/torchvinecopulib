@@ -5,7 +5,7 @@ name: Lint Pytest
 
 on:
   push:
-    branches: ["main", "dev_ian"]
+    branches: ["main", "dev_ian", "feature/cicd"]
   pull_request:
     branches: ["main"]
 
