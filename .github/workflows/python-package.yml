@@ -48,7 +48,7 @@ jobs:
           coverage report
           coverage html
 
-      - name: Upload coverage to Codacy
+      - name: Upload test coverage to Codacy
         if: ${{ runner.os == 'ubuntu-latest' && matrix.python-version == '3.12' }}
         run: |
           if [ -z "${{ secrets.CODACY_API_BASE_URL }}" ]; then
