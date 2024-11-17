@@ -50,5 +50,6 @@ jobs:
 
       - name: Upload coverage to Codacy
         run: |
+          export CODACY_API_BASE_URL=${{ secrets.CODACY_API_BASE_URL }}
           export CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }}
           bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ./coverage.xml
