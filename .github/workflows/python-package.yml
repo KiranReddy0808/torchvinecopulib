@@ -52,4 +52,8 @@ jobs:
         run: |
           export CODACY_API_BASE_URL=${{ secrets.CODACY_API_BASE_URL }}
           export CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }}
+          echo "CODACY_API_BASE_URL=${{ secrets.CODACY_API_BASE_URL }}"
+          echo "CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }}"
+          echo CODACY_API_BASE_URL
+          echo CODACY_PROJECT_TOKEN
           bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ./coverage.xml
