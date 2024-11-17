@@ -43,7 +43,7 @@ jobs:
         run: |
           python -c "import sys; print(sys.version)"
           python -c "import torch; print(torch.cuda.is_available())"
-          coverage run pytest ./tests --verbose
+          coverage run -m pytest ./tests
           coverage xml
           coverage report
           coverage html
