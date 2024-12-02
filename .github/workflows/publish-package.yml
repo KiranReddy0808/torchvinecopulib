@@ -1,0 +1,54 @@
+name: Publish to PyPI and TestPyPI
+
+on: push
+        
+jobs:
+    build:
+        name: Publish to PyPI
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+            - name: Set up Python 3.12
+              uses: actions/setup-python@v2
+              with:
+                python-version: 3.12
+            - name: Install dependencies and build package
+              run: |
+                python3 -m pip install --upgrade pip
+                if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+                python3 -m build
+            - name: Store the distribution packages
+              uses: actions/upload-artifact@v4
+              with:
+                name: python-distribution-packages
+                path: dist/*
+    publish:
+        name: Publish to TestPyPI
+        needs: build
+        runs-on: ubuntu-latest
+        environment:
+            name: testpypi
+            url: https://test.pypi.org/project/torchvinecopulib/
+        permissions:
+            id-token: write
+            # contents: write
+        
+        steps:
+            - name: Download the distribution packages
+              uses: actions/download-artifact@v4
+              with:
+                name: python-distribution-packages
+                path: dist/
+            - name: Publish distribution
+              uses: pypa/gh-action-pypi-publish@release/v1
+              with:
+                url: https://test.pypi.org/legacy/
+              
+
+
+
+            
+              
+
+    
