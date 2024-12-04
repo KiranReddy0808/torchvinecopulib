@@ -30,7 +30,7 @@ jobs:
         runs-on: ubuntu-latest
         environment:
             name: testpypi
-            url: https://test.pypi.org/project/torchvinecopulib/
+            url: https://test.pypi.org/p/torchvinecopulib/
         permissions:
             id-token: write
             # contents: write
@@ -43,13 +43,3 @@ jobs:
                 path: dist/
             - name: Publish distribution
               uses: pypa/gh-action-pypi-publish@release/v1
-              with:
-                url: https://test.pypi.org/legacy/
-              
-
-
-
-            
-              
-
-    
