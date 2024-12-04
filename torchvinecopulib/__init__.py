@@ -5,4 +5,7 @@ __all__ = [
     "util",
     "vinecop",
 ]
-__version__ = "2024.10.1"
+
+import importlib.metadata
+
+__version__ = importlib.metadata.version("torchvinecopulib")
