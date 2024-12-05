@@ -5,7 +5,3 @@ __all__ = [
     "util",
     "vinecop",
 ]
-
-import importlib.metadata
-
-__version__ = importlib.metadata.version("torchvinecopulib")
